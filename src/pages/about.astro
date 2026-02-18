@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TeamCard from '../components/TeamCard.astro';
+import { getCollection } from 'astro:content';
+
+const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="About Us — Noosa Labs"
+  description="Meet the Noosa Labs team. We're a remote-first team across seven countries, united by a mission to steward small SaaS businesses."
+>
+  <section class="section">
+    <div class="container">
+      <h1 class="page-title">About Noosa Labs</h1>
+      <div class="about-story">
+        <p>
+          Noosa Labs is a serial acquirer of small, profitable SaaS businesses.
+          We step in so founders can move on, certain that their customers are
+          cared for and their legacy will thrive.
+        </p>
+        <p>
+          We're not flippers. We're long-term operators who believe in maintaining
+          and evolving tools that serve SMBs and prosumers. Our team is remote-first,
+          spread across seven countries on four continents, with offices in Miami and Paris.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section team-section">
+    <div class="container">
+      <h2 class="team-heading">Our Team</h2>
+      <div class="team-grid">
+        {team.map(member => (
+          <TeamCard
+            name={member.data.name}
+            role={member.data.role}
+            country={member.data.country}
+            photo={member.data.photo}
+            linkedin={member.data.linkedin}
+            github={member.data.github}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-story {
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .about-story p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  .team-heading {
+    font-size: 2.2rem;
+    margin-bottom: 48px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px 24px;
+  }
+
+  @media (max-width: 1024px) {
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

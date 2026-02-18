@@ -1,0 +1,176 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CriteriaCard from '../components/CriteriaCard.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import NewsletterPopup from '../components/NewsletterPopup.astro';
+
+const criteria = [
+  { title: 'SaaS targeting mainly SMB', description: 'Small and medium businesses, teams, customers' },
+  { title: '$200k - $800k ARR', description: 'Annual recurring revenue in the sweet spot for growth' },
+  { title: 'Positive & Ethical', description: 'A business with good values and customer relationships' },
+  { title: 'Highly profitable (60%+ margins)', description: "Excluding founders' salaries, healthy unit economics" },
+  { title: 'Easy to maintain and stable codebase', description: 'Well-architected technology that can scale' },
+  { title: 'Primarily organic growth', description: 'Word-of-mouth and product-led acquisition' },
+];
+
+const scenarios = [
+  { title: 'Stalled growth', description: "Your SaaS has plateaued and you're ready for someone else to take the reins and find new growth opportunities." },
+  { title: 'Non-core acquisition', description: "You've acquired a SaaS product that doesn't fit your core strategy. We'll give it the attention it deserves." },
+  { title: 'Divestment', description: "You need to divest a product line. We provide a smooth transition for your customers and team." },
+  { title: 'Founder transition', description: "You're ready to move on to your next venture. We step in so you can step out with confidence." },
+];
+---
+
+<BaseLayout title="Noosa Labs — We buy small profitable SaaS businesses">
+  <Hero />
+
+  <!-- What We Look For -->
+  <section class="section criteria">
+    <div class="container">
+      <h2 class="criteria__heading">What We Look For</h2>
+      <div class="criteria__grid">
+        {criteria.map(c => (
+          <CriteriaCard title={c.title} description={c.description} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Scenarios -->
+  <section class="section scenarios">
+    <div class="container">
+      <h2 class="scenarios__heading">Is this you?</h2>
+      <div class="scenarios__grid">
+        {scenarios.map(s => (
+          <div class="scenario">
+            <h3>{s.title}</h3>
+            <p>{s.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section testimonials">
+    <div class="container">
+      <h2 class="testimonials__heading">What founders say</h2>
+      <div class="testimonials__grid">
+        <TestimonialCard
+          name="Founder Name"
+          company="Company Name"
+          quote="Placeholder testimonial — a short quote about the acquisition experience with Noosa Labs."
+          videoUrl="placeholder"
+        />
+        <TestimonialCard
+          name="Founder Name"
+          company="Company Name"
+          quote="Placeholder testimonial — a short quote about how the transition was handled professionally."
+          videoUrl="placeholder"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTAs -->
+  <section class="section ctas">
+    <div class="container ctas__inner">
+      <div class="cta-block">
+        <h2>Ready to talk?</h2>
+        <p>Let's discuss whether Noosa Labs is the right home for your SaaS.</p>
+        <a href="/contact" class="btn-primary">Talk to us</a>
+      </div>
+      <div class="cta-block">
+        <h2>Stay in the loop</h2>
+        <p>Get insights on SaaS acquisitions and updates from Noosa Labs.</p>
+        <a href="#" class="btn-outline" data-newsletter-trigger>Subscribe to newsletter</a>
+      </div>
+    </div>
+  </section>
+
+  <NewsletterPopup />
+</BaseLayout>
+
+<style>
+  .criteria__heading,
+  .scenarios__heading,
+  .testimonials__heading {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 48px;
+  }
+
+  .criteria__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .scenarios__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .scenario {
+    background-color: var(--color-white);
+    border: 1px solid rgba(0, 28, 2, 0.08);
+    border-radius: 12px;
+    padding: 28px 24px;
+  }
+
+  .scenario h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .scenario p {
+    font-size: 0.95rem;
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .ctas__inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .cta-block {
+    background-color: var(--color-dark-green);
+    color: var(--color-white);
+    border-radius: 16px;
+    padding: 48px 40px;
+  }
+
+  .cta-block h2 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .cta-block p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .criteria__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .scenarios__grid,
+    .testimonials__grid,
+    .ctas__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

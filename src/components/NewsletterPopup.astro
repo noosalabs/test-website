@@ -1,0 +1,119 @@
+---
+interface Props {
+  substackUrl?: string;
+}
+
+const { substackUrl = 'https://noosalabs.substack.com' } = Astro.props;
+---
+
+<div class="newsletter-popup" id="newsletter-popup" role="dialog" aria-modal="true" aria-label="Newsletter subscription">
+  <div class="newsletter-popup__overlay" data-close></div>
+  <div class="newsletter-popup__content">
+    <button class="newsletter-popup__close" data-close aria-label="Close">&times;</button>
+    <h3 class="newsletter-popup__title">Subscribe to our newsletter</h3>
+    <p class="newsletter-popup__desc">
+      Stay informed about SaaS acquisitions, insights, and updates from Noosa Labs.
+    </p>
+    <a href={substackUrl} target="_blank" rel="noopener noreferrer" class="newsletter-popup__btn btn-primary">
+      Subscribe on Substack
+    </a>
+  </div>
+</div>
+
+<style>
+  .newsletter-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .newsletter-popup.open {
+    display: flex;
+  }
+
+  .newsletter-popup__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 28, 2, 0.5);
+  }
+
+  .newsletter-popup__content {
+    position: relative;
+    background-color: var(--color-white);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+  }
+
+  .newsletter-popup__close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-black);
+    opacity: 0.5;
+  }
+
+  .newsletter-popup__close:hover {
+    opacity: 1;
+  }
+
+  .newsletter-popup__title {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .newsletter-popup__desc {
+    font-size: 0.95rem;
+    opacity: 0.7;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+</style>
+
+<script>
+  const popup = document.getElementById('newsletter-popup');
+  const closeBtns = popup?.querySelectorAll('[data-close]');
+  const triggers = document.querySelectorAll('[data-newsletter-trigger]');
+  const content = popup?.querySelector('.newsletter-popup__content');
+  let previousFocus: Element | null = null;
+
+  function openPopup() {
+    previousFocus = document.activeElement;
+    popup?.classList.add('open');
+    const firstFocusable = content?.querySelector<HTMLElement>('a, button');
+    firstFocusable?.focus();
+  }
+
+  function closePopup() {
+    popup?.classList.remove('open');
+    if (previousFocus instanceof HTMLElement) {
+      previousFocus.focus();
+    }
+  }
+
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      openPopup();
+    });
+  });
+
+  closeBtns?.forEach(btn => {
+    btn.addEventListener('click', closePopup);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && popup?.classList.contains('open')) {
+      closePopup();
+    }
+  });
+</script>

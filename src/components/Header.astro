@@ -1,0 +1,137 @@
+---
+import { navLinks } from '../data/navigation';
+---
+
+<header class="header">
+  <nav class="header__nav container">
+    <a href="/" class="header__logo">
+      <img src="/logos/noosa-labs-logo-light.png" alt="Noosa Labs" class="header__logo-img" />
+    </a>
+
+    <button class="header__menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="header-links">
+      <span class="header__menu-bar"></span>
+      <span class="header__menu-bar"></span>
+      <span class="header__menu-bar"></span>
+    </button>
+
+    <ul class="header__links" id="header-links">
+      {navLinks.map(link => (
+        <li><a href={link.href}>{link.label}</a></li>
+      ))}
+      <li>
+        <a href="/contact" class="header__cta">Contact us</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .header {
+    background-color: var(--color-primary-green);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--nav-height);
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .header__logo-img {
+    height: 40px;
+    width: auto;
+  }
+
+  .header__menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .header__menu-bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-white);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .header__links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .header__links a:not(.header__cta) {
+    color: var(--color-white);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+
+  .header__links a:not(.header__cta):hover {
+    opacity: 0.8;
+  }
+
+  .header__cta {
+    background-color: var(--color-primary-yellow);
+    color: var(--color-black);
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 800;
+    transition: background-color 0.2s;
+  }
+
+  .header__cta:hover {
+    background-color: var(--color-primary-yellow-hover);
+  }
+
+  @media (max-width: 768px) {
+    .header__menu-toggle {
+      display: flex;
+    }
+
+    .header__links {
+      display: none;
+      position: absolute;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background-color: var(--color-primary-green);
+      padding: 24px;
+      gap: 16px;
+    }
+
+    .header__links.open {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.header__menu-toggle');
+  const links = document.querySelector('.header__links');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = links?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  links?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

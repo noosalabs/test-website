@@ -1,0 +1,35 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<div class="criteria-card">
+  <h3 class="criteria-card__title">{title}</h3>
+  <p class="criteria-card__desc">{description}</p>
+</div>
+
+<style>
+  .criteria-card {
+    background-color: var(--color-light-cream);
+    border: 1px solid rgba(0, 28, 2, 0.08);
+    border-radius: 12px;
+    padding: 28px 24px;
+  }
+
+  .criteria-card__title {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--color-black);
+  }
+
+  .criteria-card__desc {
+    font-size: 0.9rem;
+    color: var(--color-black);
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+</style>

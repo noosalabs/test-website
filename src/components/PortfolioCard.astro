@@ -1,0 +1,71 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  logo: string;
+  url: string;
+  testimonialUrl?: string;
+}
+
+const { name, description, logo, url, testimonialUrl } = Astro.props;
+---
+
+<div class="portfolio-card">
+  <img src={logo} alt={`${name} logo`} class="portfolio-card__logo" />
+  <h3 class="portfolio-card__name">{name}</h3>
+  <p class="portfolio-card__desc">{description}</p>
+  <div class="portfolio-card__links">
+    <a href={url} target="_blank" rel="noopener noreferrer">Visit site &rarr;</a>
+    {testimonialUrl && (
+      <a href={testimonialUrl}>Read testimonial</a>
+    )}
+  </div>
+</div>
+
+<style>
+  .portfolio-card {
+    background-color: var(--color-white);
+    border: 1px solid rgba(0, 28, 2, 0.08);
+    border-radius: 12px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .portfolio-card__logo {
+    height: 40px;
+    width: auto;
+    margin-bottom: 20px;
+    object-fit: contain;
+  }
+
+  .portfolio-card__name {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .portfolio-card__desc {
+    font-size: 0.95rem;
+    opacity: 0.7;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex: 1;
+  }
+
+  .portfolio-card__links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .portfolio-card__links a {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--color-primary-green);
+    transition: opacity 0.2s;
+  }
+
+  .portfolio-card__links a:hover {
+    opacity: 0.7;
+  }
+</style>

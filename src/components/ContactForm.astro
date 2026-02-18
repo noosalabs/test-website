@@ -1,0 +1,92 @@
+---
+interface Props {
+  formspreeId?: string;
+}
+
+const { formspreeId = 'YOUR_FORMSPREE_ID' } = Astro.props;
+---
+
+<form class="contact-form" action={`https://formspree.io/f/${formspreeId}`} method="POST">
+  <input type="hidden" name="_subject" value="Noosa Labs Website Inquiry" />
+
+  <div class="contact-form__field">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required />
+  </div>
+
+  <div class="contact-form__field">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="_replyto" required />
+  </div>
+
+  <div class="contact-form__field">
+    <label for="company">Company / Product</label>
+    <input type="text" id="company" name="company" />
+  </div>
+
+  <div class="contact-form__field">
+    <label for="arr">Approximate ARR</label>
+    <select id="arr" name="arr">
+      <option value="">Select range</option>
+      <option value="Under $200k">Under $200k</option>
+      <option value="$200k - $400k">$200k - $400k</option>
+      <option value="$400k - $600k">$400k - $600k</option>
+      <option value="$600k - $800k">$600k - $800k</option>
+      <option value="Over $800k">Over $800k</option>
+    </select>
+  </div>
+
+  <div class="contact-form__field">
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+  </div>
+
+  <button type="submit" class="btn-primary contact-form__submit">Send message</button>
+</form>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 560px;
+  }
+
+  .contact-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .contact-form__field label {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--color-black);
+  }
+
+  .contact-form__field input,
+  .contact-form__field select,
+  .contact-form__field textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 12px 16px;
+    border: 1px solid rgba(0, 28, 2, 0.15);
+    border-radius: 8px;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    transition: border-color 0.2s;
+  }
+
+  .contact-form__field input:focus,
+  .contact-form__field select:focus,
+  .contact-form__field textarea:focus {
+    outline: 2px solid var(--color-primary-green);
+    outline-offset: 1px;
+    border-color: var(--color-primary-green);
+  }
+
+  .contact-form__submit {
+    align-self: flex-start;
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PortfolioCard from '../components/PortfolioCard.astro';
+import { getCollection } from 'astro:content';
+
+const companies = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Portfolio — Noosa Labs"
+  description="Explore the SaaS companies acquired and operated by Noosa Labs."
+>
+  <section class="section">
+    <div class="container">
+      <h1 class="page-title">Our Portfolio</h1>
+      <p class="page-subtitle">
+        SaaS products we've acquired and continue to grow for their customers.
+      </p>
+      <div class="portfolio-grid">
+        {companies.map(company => (
+          <PortfolioCard
+            name={company.data.name}
+            description={company.data.description}
+            logo={company.data.logo}
+            url={company.data.url}
+            testimonialUrl={company.data.testimonialUrl}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .portfolio-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

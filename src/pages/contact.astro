@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import NewsletterPopup from '../components/NewsletterPopup.astro';
+---
+
+<BaseLayout
+  title="Contact Us — Noosa Labs"
+  description="Get in touch with Noosa Labs to discuss selling your SaaS business."
+>
+  <section class="section">
+    <div class="container contact-layout">
+      <div class="contact-info">
+        <h1 class="page-title">Let's talk</h1>
+        <p class="page-subtitle">
+          Thinking about selling your SaaS? We'd love to hear from you.
+          Fill out the form and we'll get back to you within a few business days.
+        </p>
+
+        <div class="contact-details">
+          <div class="contact-detail">
+            <h3>Offices</h3>
+            <p>Miami, FL, USA</p>
+            <p>Paris, France</p>
+          </div>
+          <div class="contact-detail">
+            <h3>Stay updated</h3>
+            <a href="#" data-newsletter-trigger>Subscribe to our newsletter</a>
+          </div>
+        </div>
+      </div>
+
+      <ContactForm />
+    </div>
+  </section>
+
+  <NewsletterPopup />
+</BaseLayout>
+
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contact-detail h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+    margin-bottom: 8px;
+  }
+
+  .contact-detail p {
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+  }
+
+  .contact-detail a {
+    font-size: 0.95rem;
+    color: var(--color-primary-green);
+    font-weight: 800;
+  }
+
+  .contact-detail a:hover {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+</style>
